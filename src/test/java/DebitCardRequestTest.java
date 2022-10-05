@@ -1,4 +1,5 @@
 import com.codeborne.selenide.SelenideElement;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Condition.exactText;
@@ -10,10 +11,15 @@ public class DebitCardRequestTest {
 
     SelenideElement form = $(".form");
 
+    @BeforeEach
+    void setUp() {
+        open("http://localhost:9999/");
+    }
+
+
 
     @Test
     void shouldTest() {
-        open("http://localhost:9999/");
         form.$("[data-test-id=name] input").setValue("Иванов Иван");
         form.$("[data-test-id=phone] input").setValue("+71234567899");
         form.$("[data-test-id=agreement]").click();
@@ -24,7 +30,6 @@ public class DebitCardRequestTest {
 
     @Test
     void shouldWarningIfInvalidName() {
-        open("http://localhost:9999/");
         form.$("[data-test-id=name] input").setValue("Ivanov Ivan");
         form.$("[data-test-id=phone] input").setValue("+71234567899");
         form.$("[data-test-id=agreement]").click();
@@ -34,7 +39,6 @@ public class DebitCardRequestTest {
 
     @Test
     void shouldWarningIfInvalidPhone() {
-        open("http://localhost:9999/");
         form.$("[data-test-id=name] input").setValue("Иванов Иван");
         form.$("[data-test-id=phone] input").setValue("+7123456789");
         form.$("[data-test-id=agreement]").click();
@@ -44,7 +48,6 @@ public class DebitCardRequestTest {
 
     @Test
     void shouldWarningIfEmptyCheckbox() {
-        open("http://localhost:9999/");
         SelenideElement form = $(".form");
         form.$("[data-test-id='name'] input").setValue("Иванов-Петров Иван");
         form.$("[data-test-id='phone'] input").setValue("+79099876545");
@@ -54,7 +57,6 @@ public class DebitCardRequestTest {
 
     @Test
     void shouldWarningIfEmptyPhone() {
-        open("http://localhost:9999/");
         form.$("[data-test-id=name] input").setValue("Иванов Иван");
         form.$("[data-test-id=phone] input").setValue("");
         form.$("[data-test-id=agreement]").click();
@@ -64,7 +66,6 @@ public class DebitCardRequestTest {
 
     @Test
     void shouldWarningIfEmptyName() {
-        open("http://localhost:9999/");
         form.$("[data-test-id=name] input").setValue("");
         form.$("[data-test-id=phone] input").setValue("+71234567899");
         form.$("[data-test-id=agreement]").click();
